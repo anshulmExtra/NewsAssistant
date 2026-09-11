@@ -1,0 +1,30 @@
+# Edit this file to personalize your daily digest.
+
+# Your favorite news sources, as RSS feed URLs.
+sources:
+  - name: BBC News
+    url: https://feeds.bbci.co.uk/news/rss.xml
+  - name: NPR News
+    url: https://feeds.npr.org/1001/rss.xml
+  - name: TechCrunch
+    url: https://techcrunch.com/feed/
+  - name: The Verge
+    url: https://www.theverge.com/rss/index.xml
+  - name: Reuters World News
+    url: https://feeds.reuters.com/reuters/worldNews
+
+# Your favorite topics. Each becomes a section in the digest.
+# Articles are matched by keyword against title/description, so keep
+# topic names as the search phrase you'd expect to see in a headline.
+topics:
+  - Artificial Intelligence
+  - Technology
+  - World News
+  - Business
+  - Science
+
+# Max number of articles kept per topic, after ranking by recency.
+max_articles_per_topic: 5
+
+# Anthropic model used to summarize each article.
+model: claude-haiku-4-5-20251001
