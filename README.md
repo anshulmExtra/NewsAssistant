@@ -56,6 +56,28 @@ DevTools → Network tab, reload, click any request to the site, and copy the
 `Cookie` request header value — that's the same thing the script extracts
 for you.)
 
+### Phone-only (Android)
+
+No computer needed:
+
+1. Install **Kiwi Browser** (Play Store) — it supports Chrome extensions
+   directly on Android.
+2. In Kiwi: ⋮ menu → Extensions → "+ From store" → install **Cookie-Editor**
+   (by Moustachauve).
+3. In Kiwi, log into economictimes.indiatimes.com as usual (email/phone + OTP).
+4. Tap the puzzle-piece icon → **Cookie-Editor** → **Export → Header String**
+   — this copies a ready-to-use cookie string to your clipboard.
+5. Open github.com (mobile browser or app) → repo **Settings → Secrets and
+   variables → Actions → New repository secret** → name it
+   `ET_SESSION_COOKIE` → paste → save.
+
+Repeat steps 3-5 every few weeks when the digest starts showing short
+snippets again.
+
+iPhone/iOS doesn't support cookie-viewing extensions the same way — the
+desktop script or borrowing a computer periodically is the practical route
+there.
+
 Notes:
 - Session cookies expire (typically days to weeks). When digest entries
   from that source go back to short snippets, re-run the refresh script.
