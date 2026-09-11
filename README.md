@@ -29,6 +29,32 @@ publishes a clean static page you can check every morning.
    `.github/workflows/daily-digest.yml` to change the time), or trigger it
    manually from the Actions tab ("Run workflow").
 
+## Using a paid subscription (e.g. Economic Times)
+
+RSS feeds only show a short teaser for paywalled articles. If you have a
+paid subscription, the bot can fetch the full article page using your
+logged-in session cookie instead of just the RSS excerpt.
+
+1. Log into the source's website in your browser (e.g.
+   economictimes.indiatimes.com) with your paid account.
+2. Open browser DevTools → Network tab, reload the page, click any request
+   to that domain, and copy the full value of the `Cookie` request header.
+3. Add it as a GitHub secret named `ET_SESSION_COOKIE` (Settings → Secrets
+   and variables → Actions). For local runs, `export ET_SESSION_COOKIE="..."`.
+4. Make sure the source is listed under `authenticated_sources` in
+   `config.yaml`, pointing at the secret's env var name.
+
+Notes:
+- Session cookies expire (typically days to weeks). If digest entries from
+  that source go back to short snippets, re-copy a fresh cookie.
+- Treat this cookie like a password — anyone with it can access your
+  account. Only store it as a GitHub secret, never commit it to the repo.
+- Full-text extraction uses a CSS selector (`scripts/fetch_full_text.py`)
+  that may need updating if the site changes its page layout.
+- This is intended for your own personal use of content you're already
+  entitled to read — check the source's terms of service before relying on
+  automated access at scale.
+
 ## Running locally
 
 ```bash

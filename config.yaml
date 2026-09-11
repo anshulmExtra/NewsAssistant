@@ -12,6 +12,15 @@ sources:
     url: https://www.theverge.com/rss/index.xml
   - name: Reuters World News
     url: https://feeds.reuters.com/reuters/worldNews
+  - name: Economic Times
+    url: https://economictimes.indiatimes.com/rssfeedstopstories.cfm
+
+# Sources listed here have their full article page fetched (instead of just
+# the RSS teaser) using a logged-in session cookie, so paywalled content
+# shows up in full for summarization. See README for how to get the cookie.
+authenticated_sources:
+  - name: Economic Times
+    cookie_env: ET_SESSION_COOKIE
 
 # Your favorite topics. Each becomes a section in the digest.
 # Articles are matched by keyword against title/description, so keep
