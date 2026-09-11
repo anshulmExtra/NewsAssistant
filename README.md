@@ -35,18 +35,30 @@ RSS feeds only show a short teaser for paywalled articles. If you have a
 paid subscription, the bot can fetch the full article page using your
 logged-in session cookie instead of just the RSS excerpt.
 
-1. Log into the source's website in your browser (e.g.
-   economictimes.indiatimes.com) with your paid account.
-2. Open browser DevTools → Network tab, reload the page, click any request
-   to that domain, and copy the full value of the `Cookie` request header.
-3. Add it as a GitHub secret named `ET_SESSION_COOKIE` (Settings → Secrets
-   and variables → Actions). For local runs, `export ET_SESSION_COOKIE="..."`.
+Economic Times requires an OTP at login, so getting that cookie can't be
+done unattended in CI — it has to happen on your own machine, where you can
+receive and enter the OTP yourself. A helper script automates the tedious
+part (grabbing the cookie afterward) so you don't need to dig through
+browser DevTools:
+
+1. On your own machine: `pip install -r requirements-refresh.txt && playwright install chromium`
+2. Run `python scripts/refresh_et_cookie.py`. A real browser window opens —
+   log in there normally (email/phone + OTP), then press Enter in the
+   terminal as instructed. The script prints the session cookie for you.
+3. Add the printed value as a GitHub secret named `ET_SESSION_COOKIE`
+   (Settings → Secrets and variables → Actions). For local digest runs,
+   `export ET_SESSION_COOKIE="..."` instead.
 4. Make sure the source is listed under `authenticated_sources` in
    `config.yaml`, pointing at the secret's env var name.
 
+(If you'd rather do it fully manually: log in in your normal browser, open
+DevTools → Network tab, reload, click any request to the site, and copy the
+`Cookie` request header value — that's the same thing the script extracts
+for you.)
+
 Notes:
-- Session cookies expire (typically days to weeks). If digest entries from
-  that source go back to short snippets, re-copy a fresh cookie.
+- Session cookies expire (typically days to weeks). When digest entries
+  from that source go back to short snippets, re-run the refresh script.
 - Treat this cookie like a password — anyone with it can access your
   account. Only store it as a GitHub secret, never commit it to the repo.
 - Full-text extraction uses a CSS selector (`scripts/fetch_full_text.py`)
